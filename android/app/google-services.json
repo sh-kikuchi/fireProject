@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "565305673384",
+    "project_id": "fireproject-4c527",
+    "storage_bucket": "fireproject-4c527.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565305673384:android:5587c9402d0d6aa1a3a49d",
+        "android_client_info": {
+          "package_name": "com.revue.fire_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565305673384-m196lhj4icscmoeu3lg3pgkk42fb103q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBErtd0DkLOkUGAPb23xtoKL7f6tdsJQCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565305673384-m196lhj4icscmoeu3lg3pgkk42fb103q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565305673384:android:e5d76a14e9029bb4a3a49d",
+        "android_client_info": {
+          "package_name": "revue.todo.dash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565305673384-m196lhj4icscmoeu3lg3pgkk42fb103q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBErtd0DkLOkUGAPb23xtoKL7f6tdsJQCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565305673384-m196lhj4icscmoeu3lg3pgkk42fb103q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
