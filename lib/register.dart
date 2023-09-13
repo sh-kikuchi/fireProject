@@ -1,24 +1,20 @@
-import 'package:fire_project/register.dart';
 import 'package:fire_project/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthAppPage extends StatefulWidget {
-  const AuthAppPage({super.key});
+class RegisterUserPage extends StatefulWidget {
+  const RegisterUserPage({super.key});
 
   @override
-  State<AuthAppPage> createState() => _AuthAppPageState();
+  State<RegisterUserPage> createState() => _RegisterUserState();
 }
 
-class _AuthAppPageState extends State<AuthAppPage> {
+class _RegisterUserState extends State<RegisterUserPage> {
   // Registration Field Email Address
   String registerUserEmail = "";
   // Registration Field Password
   String registerUserPassword = "";
   // Login field email address
-  String loginUserEmail = "";
-  // Login field password (login)
-  String loginUserPassword = "";
   // View information about registration and login
   String DebugText = "";
 
@@ -31,19 +27,22 @@ class _AuthAppPageState extends State<AuthAppPage> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                // Set labels for text input
                 decoration: const InputDecoration(labelText: "Mail Address"),
                 onChanged: (String value) {
                   setState(() {
-                    loginUserEmail = value;
+                    registerUserEmail = value;
                   });
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: "Password"),
+                decoration: const InputDecoration(
+                    labelText: "6 character long Password"),
+                // Mask not to show password
                 obscureText: true,
                 onChanged: (String value) {
                   setState(() {
-                    loginUserPassword = value;
+                    registerUserPassword = value;
                   });
                 },
               ),
@@ -54,41 +53,18 @@ class _AuthAppPageState extends State<AuthAppPage> {
                 ),
                 onPressed: () async {
                   try {
-                    // Try login
+                    // User Registration
                     final FirebaseAuth auth = FirebaseAuth.instance;
                     final UserCredential result =
-                        await auth.signInWithEmailAndPassword(
-                      email: loginUserEmail,
-                      password: loginUserPassword,
+                        await auth.createUserWithEmailAndPassword(
+                      email: registerUserEmail,
+                      password: registerUserPassword,
                     );
-                    // Succeeded to login
+                    // Registered User Information
                     final User user = result.user!;
-                    //ログインに成功したら
-                    await Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) {
-                        return ToDoPage(user);
-                      }),
-                    );
-                  } catch (e) {
-                    // Failed to login
-                    setState(() {
-                      DebugText = "Failed to Login：${e.toString()}";
-                    });
-                  }
-                },
-                child: const Text("Login"),
-              ),
-              const SizedBox(height: 8),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey, //背景色
-                ),
-                onPressed: () async {
-                  try {
-                    // User Registration
                     await Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
-                      return const RegisterUserPage();
+                      return ToDoPage(user);
                     }));
                   } catch (e) {
                     // Failed User Information
@@ -99,7 +75,6 @@ class _AuthAppPageState extends State<AuthAppPage> {
                 },
                 child: const Text("User Registration"),
               ),
-              Text(DebugText),
             ],
           ),
         ),
