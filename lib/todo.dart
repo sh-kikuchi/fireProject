@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'auth.dart';
+
 class ToDoPage extends StatefulWidget {
   // const ToDoPage(User user, {Key? key}) : super(key: key);
   ToDoPage(this.user);
@@ -147,6 +149,19 @@ class _ToDoPageState extends State<ToDoPage> {
         appBar: AppBar(
           title: Text('Fire Project_${widget.user.email as String}'),
           backgroundColor: Colors.red,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                // ログイン画面に遷移
+                await Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return const AuthAppPage();
+                }));
+              },
+            ),
+          ],
         ),
         // StreamBuilder to pass Firestore values to ListView.builder
         body: StreamBuilder(
