@@ -74,8 +74,11 @@ class _ToDoPageState extends State<ToDoPage> {
                     if (todo != null && content != null) {
                       if (mode == 'addition') {
                         // Persist a new product to Firestore
-                        await _todos.add({"todo": todo, "content": content});
-
+                        await _todos.add({
+                          "email": widget.user.email,
+                          "todo": todo,
+                          "content": content
+                        });
                         // Show the snack bar for the add
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             backgroundColor: Colors.red,
@@ -90,9 +93,11 @@ class _ToDoPageState extends State<ToDoPage> {
                       // Editing process
                       if (mode == 'update') {
                         // Update the product
-                        await _todos
-                            .doc(documentSnapshot!.id)
-                            .update({"todo": todo, "content": content});
+                        await _todos.doc(documentSnapshot!.id).update({
+                          "email": widget.user.email,
+                          "todo": todo,
+                          "content": content
+                        });
 
                         // Show the snack bar for the edit
                         ScaffoldMessenger.of(context)
@@ -181,24 +186,25 @@ class _ToDoPageState extends State<ToDoPage> {
                       title: Text(documentSnapshot['todo']), // ToDo
                       subtitle: Text(
                           documentSnapshot['content'].toString()), // Content
+
                       trailing: SizedBox(
                         width: 100,
-                        child: Row(
-                          children: [
-                            // Edit Button
-                            IconButton(
-                                color: Colors.red,
-                                icon: const Icon(Icons.edit),
-                                onPressed: () =>
-                                    _add_or_update(documentSnapshot)),
-                            // Delete Button
-                            IconButton(
-                                color: Colors.red,
-                                icon: const Icon(Icons.delete),
-                                onPressed: () =>
-                                    _deleteProduct(documentSnapshot.id)),
-                          ],
-                        ),
+                        child: documentSnapshot['email'] == widget.user.email
+                            ? Row(children: [
+                                // Edit Button
+                                IconButton(
+                                    color: Colors.red,
+                                    icon: const Icon(Icons.edit),
+                                    onPressed: () =>
+                                        _add_or_update(documentSnapshot)),
+                                // Delete Button
+                                IconButton(
+                                    color: Colors.red,
+                                    icon: const Icon(Icons.delete),
+                                    onPressed: () =>
+                                        _deleteProduct(documentSnapshot.id)),
+                              ])
+                            : null,
                       ),
                     ),
                   );
